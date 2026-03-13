@@ -6,7 +6,7 @@ import { HeadingPlugin } from '@platejs/basic-nodes/react';
 import Prism from 'prismjs';
 
 export const basicNodesPlugins = [
-  HeadingPlugin.configure({ options: { levels: 3 } }),
+  HeadingPlugin.configure({ options: { levels: 6 } }),
   BlockquotePlugin,
   CodeBlockPlugin.configure({ options: { prism: Prism } }),
   BasicMarksPlugin,
