@@ -100,7 +100,7 @@ export const editorPlugins = [
 
   // Deserialization
   DocxPlugin,
-  MarkdownPlugin.configure({ options: { indentList: true } }),
+  MarkdownPlugin.configure({}),
   JuicePlugin,
 
   // UI

@@ -9,25 +9,30 @@ import type {
   CodeBlockPlugin,
   CodeLinePlugin,
 } from '@platejs/code-block/react';
-import type { TCommentText } from '@platejs/comment';
-import type { TExcalidrawElement } from '@platejs/excalidraw';
 import type { ExcalidrawPlugin } from '@platejs/excalidraw/react';
-import type { HEADING_KEYS } from 'platejs';
 import type { HorizontalRulePlugin } from '@platejs/basic-nodes/react';
-import type { TLinkElement } from '@platejs/link';
 import type { LinkPlugin } from '@platejs/link/react';
-import type { TImageElement, TMediaEmbedElement } from '@platejs/media';
 import type { ImagePlugin, MediaEmbedPlugin } from '@platejs/media/react';
-import type { TMentionElement, TMentionInputElement } from '@platejs/mention';
 import type { MentionInputPlugin, MentionPlugin } from '@platejs/mention/react';
-import type { TTableElement } from '@platejs/table';
 import type {
   TableCellPlugin,
   TablePlugin,
   TableRowPlugin,
 } from '@platejs/table/react';
-import type { TToggleElement } from '@platejs/toggle';
 import type { TogglePlugin } from '@platejs/toggle/react';
+
+// Local type aliases for types that moved or were removed across platejs versions.
+type TCommentText = TText & Record<string, unknown>;
+type TLinkElement = TElement & { url?: string; children: any[] };
+type TImageElement = TElement & { url?: string };
+type TMediaEmbedElement = TElement & { url?: string };
+type TMentionElement = TElement & { value?: string };
+type TMentionInputElement = TElement & { trigger?: string };
+type TExcalidrawElement = TElement & { data?: unknown };
+type TToggleElement = TElement;
+type TTableElement = TElement;
+
+const HEADING_KEYS = { h1: 'h1', h2: 'h2', h3: 'h3' } as const;
 
 /** Text */
 

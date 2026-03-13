@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { Slot } from '@radix-ui/react-slot';
 import { cn } from '@udecode/cn';
 
 export const Button = React.forwardRef<
@@ -8,10 +9,12 @@ export const Button = React.forwardRef<
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
     variant?: string;
     size?: string;
+    asChild?: boolean;
   }
->(({ children, className, variant, size, ...props }, ref) => {
+>(({ children, className, variant, size, asChild, ...props }, ref) => {
+  const Comp = asChild ? Slot : 'button';
   return (
-    <button
+    <Comp
       ref={ref}
       className={cn(
         'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50',
@@ -33,7 +36,7 @@ export const Button = React.forwardRef<
       {...props}
     >
       {children}
-    </button>
+    </Comp>
   );
 });
 Button.displayName = 'Button';

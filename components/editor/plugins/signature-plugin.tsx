@@ -135,8 +135,8 @@ export const SignaturePlugin = createPlatePlugin({
             validNodeName: 'FIGURE',
           },
         ],
-        query: (el) => {
-          return el.classList?.contains('plate-signature') ?? false;
+        query: (el: any) => {
+          return el?.classList?.contains('plate-signature') ?? false;
         },
         parse: () => ({ type: SIGNATURE_KEY }),
       },
@@ -261,7 +261,7 @@ export function updateSignature(
 ) {
   const entry = (editor as any).api.block({
     match: (n: any) =>
-      ElementApi.isBlock(editor as any, n) && n.type === SIGNATURE_KEY,
+      ElementApi.isElement(n) && n.type === SIGNATURE_KEY,
   });
   if (!entry) return;
   (editor as any).tf.setNodes(data, { at: entry[1] });
@@ -274,7 +274,7 @@ export async function setSignatureImage(
 ) {
   const entry = (editor as any).api.block({
     match: (n: any) =>
-      ElementApi.isBlock(editor as any, n) && n.type === SIGNATURE_KEY,
+      ElementApi.isElement(n) && n.type === SIGNATURE_KEY,
   });
   if (!entry) return;
   (editor as any).tf.setNodes({ imageSrc, imageAlt }, { at: entry[1] });

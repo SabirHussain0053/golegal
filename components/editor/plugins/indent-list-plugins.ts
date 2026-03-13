@@ -41,7 +41,7 @@ export const ListPlugins = [
       ],
     },
     render: {
-      belowNodes: BlockList,
+      belowNodes: BlockList as any,
     },
   }),
 ];

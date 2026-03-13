@@ -18,7 +18,7 @@ export const dndPlugins = [
       },
     },
     render: {
-      aboveNodes: DraggableAboveNodes,
+      aboveNodes: DraggableAboveNodes as any,
     },
   }),
 ] as const;

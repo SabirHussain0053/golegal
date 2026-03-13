@@ -1,6 +1,13 @@
 'use client';
 
-import type { TComment } from '@platejs/comment';
+type TComment = {
+  id: string;
+  createdAt: number;
+  userId: string;
+  value: any[];
+  isResolved?: boolean;
+  parentId?: string;
+};
 
 import { CommentPlugin } from '@platejs/comment/react';
 

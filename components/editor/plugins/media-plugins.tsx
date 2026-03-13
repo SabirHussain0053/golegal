@@ -24,13 +24,9 @@ export const mediaPlugins = [
   FilePlugin,
   CaptionPlugin.configure({
     options: {
-      plugins: [
-        ImagePlugin,
-        VideoPlugin,
-        AudioPlugin,
-        FilePlugin,
-        MediaEmbedPlugin,
-      ],
+      query: {
+        allow: [ImagePlugin.key, VideoPlugin.key, AudioPlugin.key, FilePlugin.key, MediaEmbedPlugin.key],
+      },
     },
   }),
   PlaceholderPlugin.configure({

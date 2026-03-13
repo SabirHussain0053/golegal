@@ -55,7 +55,7 @@ export const copilotPlugins = [
   ${prompt}
   """`;
       },
-      renderGhostText: GhostText,
+      renderGhostText: GhostText as any,
     },
   })),
 ] as const;

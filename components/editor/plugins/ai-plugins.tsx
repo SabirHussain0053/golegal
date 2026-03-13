@@ -92,25 +92,9 @@ export const PROMPT_TEMPLATES = {
 
 export const aiPlugins = [
   cursorOverlayPlugin,
-  MarkdownPlugin.configure({ options: { indentList: true } }),
+  MarkdownPlugin.configure({}),
   AIPlugin,
   AIChatPlugin.configure({
-    options: {
-      promptTemplate: ({ isBlockSelecting, isSelecting }) => {
-        return isBlockSelecting
-          ? PROMPT_TEMPLATES.userBlockSelecting
-          : isSelecting
-            ? PROMPT_TEMPLATES.userSelecting
-            : PROMPT_TEMPLATES.userDefault;
-      },
-      systemTemplate: ({ isBlockSelecting, isSelecting }) => {
-        return isBlockSelecting
-          ? PROMPT_TEMPLATES.systemBlockSelecting
-          : isSelecting
-            ? PROMPT_TEMPLATES.systemSelecting
-            : PROMPT_TEMPLATES.systemDefault;
-      },
-    },
     render: { afterEditable: () => <AIMenu /> },
   }),
 ] as const;
