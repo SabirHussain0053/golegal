@@ -49,6 +49,9 @@ const SimpleParagraph = ({ attributes, children, element }: any) => {
   const style: React.CSSProperties = {};
   if (element.backgroundColor) style.backgroundColor = element.backgroundColor;
   if (element.color) style.color = element.color;
+  if (element.align) style.textAlign = element.align;
+  if (element.lineHeight) style.lineHeight = element.lineHeight;
+  if (element.indent) style.marginLeft = `${element.indent * 40}px`;
 
   return (
     <p
@@ -84,6 +87,9 @@ const DiffAwareLeaf = ({ attributes, children, leaf }: any) => {
   // Apply diff styles from leaf properties
   if (leaf.backgroundColor) style.backgroundColor = leaf.backgroundColor;
   if (leaf.color) style.color = leaf.color;
+  if (leaf.fontSize) style.fontSize = leaf.fontSize;
+  if (leaf.fontFamily) style.fontFamily = leaf.fontFamily;
+  if (leaf.fontWeight) style.fontWeight = leaf.fontWeight;
 
   let content = children;
 
@@ -96,6 +102,14 @@ const DiffAwareLeaf = ({ attributes, children, leaf }: any) => {
     content = <code className="bg-gray-100 px-1 rounded">{content}</code>;
   if (leaf.subscript) content = <sub>{content}</sub>;
   if (leaf.superscript) content = <sup>{content}</sup>;
+  if (leaf.highlight)
+    content = <mark>{content}</mark>;
+  if (leaf.kbd)
+    content = (
+      <kbd className="rounded border border-gray-200 bg-gray-100 px-1.5 py-0.5 font-mono text-sm">
+        {content}
+      </kbd>
+    );
 
   // If we have styles, wrap in span
   if (Object.keys(style).length > 0) {
@@ -313,10 +327,13 @@ const RenderNode = memo(({ node }: { node: any }) => {
   const type = node.type || 'p';
   const children = node.children || [];
 
-  // Build inline styles for diff highlighting
+  // Build inline styles for diff highlighting and formatting
   const style: React.CSSProperties = {};
   if (node.backgroundColor) style.backgroundColor = node.backgroundColor;
   if (node.color) style.color = node.color;
+  if (node.align) style.textAlign = node.align;
+  if (node.lineHeight) style.lineHeight = node.lineHeight;
+  if (node.indent) style.marginLeft = `${node.indent * 40}px`;
 
   // Render children (text nodes with formatting)
   const renderedChildren = children.map((child: any, idx: number) => (
@@ -469,11 +486,22 @@ const RenderLeaf = memo(({ leaf }: { leaf: any }) => {
       );
     if (leaf.subscript) content = <sub>{content}</sub>;
     if (leaf.superscript) content = <sup>{content}</sup>;
+    if (leaf.highlight)
+      content = <mark>{content}</mark>;
+    if (leaf.kbd)
+      content = (
+        <kbd className="rounded border border-gray-200 bg-gray-100 px-1.5 py-0.5 font-mono text-sm">
+          {content}
+        </kbd>
+      );
 
-    // Apply diff styles (backgroundColor, color)
+    // Apply inline styles (diff styles + font formatting)
     const style: React.CSSProperties = {};
     if (leaf.backgroundColor) style.backgroundColor = leaf.backgroundColor;
     if (leaf.color) style.color = leaf.color;
+    if (leaf.fontSize) style.fontSize = leaf.fontSize;
+    if (leaf.fontFamily) style.fontFamily = leaf.fontFamily;
+    if (leaf.fontWeight) style.fontWeight = leaf.fontWeight;
 
     if (Object.keys(style).length > 0) {
       return <span style={style}>{content}</span>;
