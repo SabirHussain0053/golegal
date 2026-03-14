@@ -6,14 +6,14 @@ import pdfToText from 'react-pdftotext';
 import { Input } from '@/components/ui/input';
 
 const ReadPDF = ({ getFileText, clearFiles }) => {
-  const [fileTexts, setFileTexts] = useState([]);
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [fileTexts, setFileTexts] = useState<any[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<any[]>([]);
 
   async function extractText(event) {
-    const files = Array.from(event.target.files);
+    const files: File[] = Array.from(event.target.files);
     setSelectedFiles(files);
 
-    const extractPromises = files.map((file) => {
+    const extractPromises = files.map(async (file) => {
       if (file.type === 'application/pdf') {
         // Extract text from PDF
         return pdfToText(file)
@@ -36,7 +36,7 @@ const ReadPDF = ({ getFileText, clearFiles }) => {
       ) {
         // Extract text from DOCX file
         return mammoth
-          .extractRawText({ arrayBuffer: file.arrayBuffer() })
+          .extractRawText({ arrayBuffer: await file.arrayBuffer() })
           .then((result) => result.value)
           .catch((error) => {
             console.error('Failed to extract text from DOCX:', error);
